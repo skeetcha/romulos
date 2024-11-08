@@ -10,10 +10,19 @@ use romulos::println;
 #[no_mangle] // don't mangle the name of this function
 pub extern "C" fn _start() -> ! {
     println!("Hello World{}", "!");
+
+    romulos::init();
+
+    fn stack_overflow() {
+        stack_overflow();
+    }
+
+    stack_overflow();
     
     #[cfg(test)]
     test_main();
 
+    println!("It did not crash!");
     loop {}
 }
 
